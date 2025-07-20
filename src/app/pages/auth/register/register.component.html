@@ -1,0 +1,195 @@
+<section class="bg-emerald-200 flex flex-col rounded-xl w-1/2 mx-auto p-4 my-2">
+  <h2>Register Now</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="signUp()" class="flex flex-col">
+    <label for="name" class="mb-2 text-sm font-medium text-gray-900"
+      >Name</label
+    >
+    <input
+      type="text"
+      id="name"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+      placeholder=""
+      formControlName="name"
+      required
+    />
+
+    <!--  -->
+    @if (registerForm.get('name')?.errors && registerForm.get('name')?.dirty) {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (registerForm.get('name')?.getError('required')) {
+          <li>Name is Reqired</li>
+          } @if
+          (registerForm.get('name')?.getError('minlength')||registerForm.get('name')?.getError('maxlength'))
+          {
+          <li>At least 3 characters to 20</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!--  -->
+    <label for="email" class="mb-2 text-sm font-medium text-gray-900"
+      >Email</label
+    >
+    <input
+      type="email"
+      id="email"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+      placeholder=""
+      formControlName="email"
+      required
+    />
+
+    <!--  -->
+    @if (registerForm.get('email')?.errors && registerForm.get('email')?.dirty)
+    {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (registerForm.get('email')?.getError('required')) {
+          <li>Email is Reqired</li>
+          } @if (registerForm.get('email')?.getError('email')) {
+          <li>Please enter correct email format</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!--  -->
+
+    <label for="password" class="mb-2 text-sm font-medium text-gray-900"
+      >Password</label
+    >
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+      placeholder=""
+      required
+    />
+
+    <!--  -->
+    @if (registerForm.get('password')?.errors &&
+    registerForm.get('password')?.dirty) {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (registerForm.get('password')?.getError('required')) {
+          <li>Password is Reqired</li>
+          } @if (registerForm.get('password')?.getError('pattern')) {
+          <li>
+            you should start with Capital letter and use small letters and
+            numbers
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!--  -->
+
+    <label for="rePassword" class="mb-2 text-sm font-medium text-gray-900"
+      >Confirm Password</label
+    >
+    <input
+      type="password"
+      id="rePassword"
+      formControlName="rePassword"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+      placeholder=""
+      required
+    />
+
+    <!--  -->
+    @if (registerForm.get('rePassword')?.errors &&
+    registerForm.get('rePassword')?.dirty || registerForm.errors) {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (registerForm.get('rePassword')?.getError('required')) {
+          <li>Confirm Password is Required</li>
+          } @if (registerForm.getError('PasswordNoMatch') &&
+          registerForm.get('rePassword')?.dirty) {
+          <li>It doesn't match password</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!--  -->
+
+    <label for="phone" class="mb-2 text-sm font-medium text-gray-900"
+      >Phone</label
+    >
+    <input
+      type="tel"
+      id="phone"
+      formControlName="phone"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+      placeholder=""
+      required
+    />
+
+    <!--  -->
+    @if (registerForm.get('phone')?.errors && registerForm.get('phone')?.dirty)
+    {
+    <div
+      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <ul class="mt-1.5 list-disc list-inside">
+          @if (registerForm.get('phone')?.getError('required')) {
+          <li>Phone is Reqired</li>
+          } @if (registerForm.get('phone')?.getError('pattern')) {
+          <li>Please enter correct phone format</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!--  -->
+    @if(responseErrorMsg){
+    <div
+      class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+      role="alert"
+    >
+      <div>
+        <p class="font-medium">
+          {{ responseErrorMsg }}
+        </p>
+      </div>
+    </div>
+    }
+
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || isLoading"
+      class="disabled:bg-gray-500 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full mt-2"
+    >
+      Register @if(isLoading==true){
+      <i class="fa-solid fa-spinner fa-spin ms-2"></i>
+      }
+    </button>
+  </form>
+</section>
