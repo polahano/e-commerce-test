@@ -1,1 +1,73 @@
 <p>cart works!</p>
+<section class="w-2/3 mx-auto">
+  <h2 class="text-4xl">Cart Items</h2>
+  <div class="container">
+    <div class="grid grid-cols-2 gap-5">
+      @if(cartProducts==[]){
+      <p>Cart is Empty !!</p>
+      <button class="bg-green-700 rounded-2xl px-3 py-2" routerLink="/home">
+        Go to Products now
+      </button>
+      } @for(cartItem of cartProducts; track cartItem._id){
+      <div class="shadow-lg border-gray-700 bg-gray-400 rounded-2xl p-5 my-2">
+        <div class="image w-1/4">
+          <img
+            [src]="cartItem.product.imageCover"
+            alt="{{ cartItem.product.description }}"
+            class="w-100 rounded-lg"
+          />
+        </div>
+        <div class="flex justify-between">
+          <div class="text">
+            <p class="text-2xl">{{ cartItem.product.title }}</p>
+            <p>{{ cartItem.price }} EGP</p>
+            <button
+              class="bg-red-700 text-white rounded-lg px-3 py-2 cursor-pointer"
+              (click)="removeItem(cartItem.product._id)"
+            >
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </div>
+          <div class="count flex gap-x-3 items-center justify-self-end">
+            <i
+              class="fas fa-add border-2 border-emerald-700 p-3 rounded-lg cursor-pointer hover:bg-emerald-700 transition-all"
+              (click)="
+                updateCartProductCount(cartItem.product._id, cartItem.count + 1)
+              "
+            ></i>
+            <p>{{ cartItem.count }}</p>
+            <!-- @if(cartItem.count>1){ -->
+            <i
+              class="fas fa-subtract border-2 border-emerald-700 p-3 rounded-lg cursor-pointer transition-all"
+              (click)="
+                updateCartProductCount(cartItem.product._id, cartItem.count - 1)
+              "
+              [class]="{
+                disabled: cartItem.count == 1,
+                'text-gray-500': cartItem.count == 1,
+                'border-gray-500': cartItem.count == 1,
+                'hover:bg-emerald-700': cartItem.count > 1
+              }"
+            ></i>
+            <!-- } -->
+          </div>
+        </div>
+      </div>
+
+      }
+    </div>
+  </div>
+  <button
+    class="bg-red-800 px-3 py-2 cursor-pointer rounded-2xl text-white"
+    (click)="clearUserCart()"
+  >
+    Clear all Cart
+  </button>
+  <button
+    class="bg-green-800 px-3 py-2 cursor-pointer rounded-2xl text-white"
+    routerLink="/checkout"
+  >
+    Proceed to Checkout
+  </button>
+  <p class="my-5 text-4xl">Total cost : {{ cartData.totalCartPrice }}</p>
+</section>

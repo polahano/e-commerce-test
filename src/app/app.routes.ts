@@ -11,6 +11,9 @@ import { ContainerComponent } from './pages/container/container/container.compon
 import { NotFoundComponent } from './pages/container/not-found/not-found.component';
 import { goToAuthGuard } from './core/guards/goToAuth/go-to-auth.guard';
 import { goToHomeGuard } from './core/guards/goToHome/go-to-home.guard';
+import { DetailsComponent } from './pages/container/details/details.component';
+import { CartComponent } from './pages/container/cart/cart.component';
+import { AllordersComponent } from './pages/container/allorders/allorders.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,18 +22,14 @@ export const routes: Routes = [
         component: ContainerComponent,
         canActivate: [goToHomeGuard],
         children: [
-            { path: 'home', component: HomeComponent, title: 'home' },
-            { path: 'about', component: AboutComponent, title: 'about' },
-            { path: 'brands', component: BrandsComponent, title: 'brands' },
-            {
-                path: 'cart',
-                loadComponent: () =>
-                    import('./pages/container/cart/cart.component').then(
-                        (c) => c.CartComponent
-                    ),
-            },
-            { path: 'checkout', component: CheckoutComponent, title: 'checkout' },
-            { path: 'products', component: ProductsComponent, title: 'products' },
+            { path: 'home', component: HomeComponent, title: 'Home' },
+            { path: 'about', component: AboutComponent, title: 'About' },
+            { path: 'brands', component: BrandsComponent, title: 'Brands' },
+            { path: 'cart', component: CartComponent, title: 'Cart' },
+            { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
+            { path: 'products', component: ProductsComponent, title: 'Products' },
+            { path: 'details/:id', component: DetailsComponent, title: 'Details' },
+            { path: 'allorders', component: AllordersComponent, title: 'Orders' },
         ],
     },
     {

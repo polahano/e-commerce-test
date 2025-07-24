@@ -1,1 +1,19 @@
-<p>details works!</p>
+<section class="details container px-20 py-10">
+  <div
+    class="flex justify-center items-center bg-gray-300 border-2 border-gray-700 shadow-lg gap-2 p-4 rounded-2xl"
+  >
+    <img
+      [src]="productDetails.imageCover"
+      [alt]="productDetails.title"
+      class="w-[30%]"
+    />
+    <div class="text w-[60%]">
+      <h2 class="text-2xl">{{ productDetails.title }}</h2>
+      <p>{{ productDetails.description }}</p>
+      <app-add-to-cart-button
+        [productId]="productDetails._id"
+        width="w-1/2 mx-auto"
+      ></app-add-to-cart-button>
+    </div>
+  </div>
+</section>

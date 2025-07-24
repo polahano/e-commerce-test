@@ -3,6 +3,8 @@ import { ICategory } from "./icategory"
 import { ISubcategory } from "./isubcategory"
 
 export interface IProduct {
+  count: number
+  product: IProduct
   sold: number
   images: string[]
   subcategory: ISubcategory[]
