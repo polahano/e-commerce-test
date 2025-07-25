@@ -14,6 +14,7 @@ import { goToHomeGuard } from './core/guards/goToHome/go-to-home.guard';
 import { DetailsComponent } from './pages/container/details/details.component';
 import { CartComponent } from './pages/container/cart/cart.component';
 import { AllordersComponent } from './pages/container/allorders/allorders.component';
+import { ForgotPassComponent } from './pages/auth/forgot-pass/forgot-pass.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -37,8 +38,9 @@ export const routes: Routes = [
         component: AuthComponent,
         canActivate: [goToAuthGuard],
         children: [
-            { path: 'login', component: LoginComponent, title: 'login' },
-            { path: 'register', component: RegisterComponent, title: 'register' },
+            { path: 'login', component: LoginComponent, title: 'Login' },
+            { path: 'register', component: RegisterComponent, title: 'Register' },
+            { path: 'forgot-password', component: ForgotPassComponent, title: 'Forgot Password' },
         ],
     },
     { path: '**', component: NotFoundComponent, title: 'NOT FOUND!!' },
