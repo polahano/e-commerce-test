@@ -13,13 +13,13 @@
 
 <div class="container px-20 py-10">
   <div class="row grid grid-cols-2 md:grid-cols-4 gap-5">
-    @for (product of productsArr; track product._id) {
+    @for (product of productsArr(); track product._id) {
 
     <div
-      class="card border-2 border-gray-400 rounded-2xl hover:scale-105 transition-all shadow-gray-300 relative p-3 cursor-pointer"
+      class="card border-2 border-gray-400 rounded-2xl hover:scale-105 transition-all shadow-gray-300 relative p-3 cursor-pointer flex flex-col justify-between"
     >
       <a target="_self" class="" [routerLink]="['/details', product._id]">
-        <div>
+        <div class="">
           <img
             [src]="product.imageCover"
             alt="{{ product.description }}"
@@ -28,20 +28,27 @@
           <p class="text-2xl line-clamp-2">{{ product.title }}</p>
         </div>
         <p>{{ product.description.split(" ", 5).join(" ") }}...</p>
-        <p class="text-xl text-emerald-700 text-center">
-          {{ product.price }} EGP
-        </p>
       </a>
-
+      <i
+        (click)="shuffleWishlistStatus(product)"
+        class="fa-regular fa-heart border-1 p-3 bg-white border-emerald-900 rounded-xl absolute end-4 bottom-52 hover:bg-gray-200 text-lg"
+        [class]="{'fa-solid':isWishListItem(product._id),'text-red-700':isWishListItem(product._id),}"
+      ></i>
       <img
         [src]="product.brand.image"
         alt="{{ product.brand.name }}"
         class="w-[50px] mx-auto absolute top-5 right-5 rounded-2xl opacity-80"
       />
-      <app-add-to-cart-button
-        [productId]="product._id"
-        width="w-full"
-      ></app-add-to-cart-button>
+      <div>
+        <p class="text-xl text-emerald-700 text-center">
+          {{ product.price }} EGP
+        </p>
+
+        <app-add-to-cart-button
+          [productId]="product._id"
+          width="w-full"
+        ></app-add-to-cart-button>
+      </div>
     </div>
     }
   </div>

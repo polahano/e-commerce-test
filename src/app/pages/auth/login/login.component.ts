@@ -19,7 +19,6 @@ export class LoginComponent {
   private readonly router = inject(Router)
   isLoading: boolean = false
   responseErrorMsg: string = ''
-  tokenData: string = ''
 
 
   logInForm: FormGroup = new FormGroup({
@@ -39,8 +38,6 @@ export class LoginComponent {
           this.isLoading = false;
           this.res = res;
           localStorage.setItem('loggedInToken', res.token)
-          this.tokenData = jwtDecode(res.token)
-
           setTimeout(() => {
             this.router.navigate(['/home'])
           }, 1500)

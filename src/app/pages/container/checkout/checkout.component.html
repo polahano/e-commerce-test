@@ -107,13 +107,60 @@
         </p>
       </div>
     </div>
-    } @if(res){
+    }
+
+    <!-- test -->
+    <!-- <app-cash-visa-card></app-cash-visa-card> -->
+
+    <div class="flex gap-4">
+      <!-- Cash Card -->
+      <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
+        <input
+          type="radio"
+          id="paymentMethod"
+          value="cash"
+          class="peer hidden"
+          formControlName="paymentMethod"
+        />
+        <div
+          class="p-4 border-2 rounded-xl text-center peer-checked:border-green-600 transition-all"
+        >
+          <div class="text-xl font-bold">Cash</div>
+          <div class="text-sm text-gray-500">Pay on delivery</div>
+        </div>
+      </label>
+
+      <!-- Visa Card -->
+      <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
+        <input
+          type="radio"
+          id="payment"
+          value="visa"
+          class="peer hidden"
+          formControlName="paymentMethod"
+        />
+        <div
+          class="p-4 border-2 rounded-xl text-center peer-checked:border-green-600 transition-all"
+        >
+          <div class="text-xl font-bold">Visa</div>
+          <div class="text-sm text-gray-500">Pay now</div>
+        </div>
+      </label>
+    </div>
+
+    <!-- test -->
+
+    @if(res){
     <div
       class="flex items-center justify-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 transition-all"
       role="alert"
     >
       <div>
+        @if(paymentForm.controls.paymentMethod.value==='visa'){
         <p class="font-medium">Redirecting to payment ...</p>
+        } @else if (paymentForm.controls.paymentMethod.value==='cash') {
+        <p class="font-medium">Redirecting to orders ...</p>
+        }
       </div>
     </div>
     }

@@ -15,6 +15,7 @@ import { DetailsComponent } from './pages/container/details/details.component';
 import { CartComponent } from './pages/container/cart/cart.component';
 import { AllordersComponent } from './pages/container/allorders/allorders.component';
 import { ForgotPassComponent } from './pages/auth/forgot-pass/forgot-pass.component';
+import { WishlistComponent } from './pages/container/wishlist/wishlist.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -31,6 +32,7 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent, title: 'Products' },
             { path: 'details/:id', component: DetailsComponent, title: 'Details' },
             { path: 'allorders', component: AllordersComponent, title: 'Orders' },
+            { path: 'wishlist', component: WishlistComponent, title: 'Wishlist' },
         ],
     },
     {

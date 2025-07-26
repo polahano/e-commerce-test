@@ -11,7 +11,7 @@ import { CartService } from '../../../../core/services/cart/cart.service';
 export class AddToCartButtonComponent {
   [x: string]: any;
 
-  readonly productId = input<string>()
+  productId = input('')
   private readonly cartService = inject(CartService);
   width = input('')
 
@@ -22,9 +22,6 @@ export class AddToCartButtonComponent {
         this.cartService.cartItemsCount.set(res.numOfCartItems)
       }
     })
-
   }
-
-
 
 }

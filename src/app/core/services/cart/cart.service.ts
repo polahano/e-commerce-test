@@ -34,8 +34,14 @@ export class CartService {
     return this.httpClient.put(`${environment.baseUrl}/api/v1/cart/${productId}`, { 'count': newCount })
   }
 
-  goToCheckoutSession(cartId: string, shippingData: object): Observable<any> {
+  goToVisaCheckoutSession(cartId: string, shippingData: object): Observable<any> {
     return this.httpClient.post(`${environment.baseUrl}/api/v1/orders/checkout-session/${cartId}?url=${window.location.origin}`, {
+      "shippingAddress": shippingData
+    })
+  }
+
+  createCashOrder(cartId: string, shippingData: object): Observable<any> {
+    return this.httpClient.post(`${environment.baseUrl}/api/v1/orders/${cartId}`, {
       "shippingAddress": shippingData
     })
   }

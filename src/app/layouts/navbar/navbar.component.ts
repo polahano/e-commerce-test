@@ -3,6 +3,9 @@ import { FlowbiteService } from '../../core/services/flowbite/flowbite.service';
 import { initFlowbite } from 'flowbite';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CartService } from '../../core/services/cart/cart.service';
+import { AuthService } from '../../core/services/auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
+import { IUser } from '../../shared/interfaces/iuser';
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +17,10 @@ export class NavbarComponent implements OnInit {
 
   constructor(private flowbiteService: FlowbiteService) { }
 
-  cartService = inject(CartService);
+  private readonly cartService = inject(CartService);
   isLoggedIn = input(false);
   cartCount = computed(() => this.cartService.cartItemsCount());
+  tokenDecoded: IUser = {} as IUser;
 
 
   ngOnInit(): void {
@@ -29,6 +33,9 @@ export class NavbarComponent implements OnInit {
       }
     })
 
+    if (localStorage.getItem('loggedInToken') !== null) {
+      this.tokenDecoded = jwtDecode(localStorage.getItem('loggedInToken')!)
+    }
   }
 
   signOut(): void {

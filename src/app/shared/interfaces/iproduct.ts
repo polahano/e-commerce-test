@@ -22,4 +22,6 @@ export interface IProduct {
   createdAt: string
   updatedAt: string
   id: string
+  __v: number
+  isWishlistItem: boolean
 }

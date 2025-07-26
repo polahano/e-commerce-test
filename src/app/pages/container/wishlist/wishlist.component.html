@@ -1,0 +1,50 @@
+<section class="w-2/3 mx-auto">
+  <h2 class="text-3xl text-center bg-green-700 p-5 rounded-2xl">
+    Your Wishlist
+  </h2>
+  <div class="container">
+    <div class="grid grid-cols-3 gap-5">
+      @if(wishlistArr()==[]){
+      <p>Wishlist is Empty !!</p>
+      <button class="bg-green-700 rounded-2xl px-3 py-2" routerLink="/home">
+        Add Products to your wishlist now
+      </button>
+      } @for(wishlistItem of wishlistArr(); track wishlistItem._id){
+      <div
+        class="shadow-lg border-gray-700 bg-gray-400 rounded-2xl p-5 my-2 flex justify-center items-center gap-2"
+      >
+        <div class="image w-1/2 relative">
+          <img
+            [src]="wishlistItem.imageCover"
+            alt="{{ wishlistItem.description }}"
+            class="w-100 rounded-lg"
+          />
+          <i
+            class="fas fa-trash bg-red-700 text-white rounded-lg px-3 py-2 cursor-pointer absolute top-2 start-2"
+            (click)="removeProductFromWishlist(wishlistItem._id)"
+          ></i>
+        </div>
+        <div class="flex justify-between">
+          <div class="text">
+            <p class="text-2xl">{{ wishlistItem.title }}</p>
+            <p>{{ wishlistItem.price }} EGP</p>
+
+            <button
+              class="bg-green-700 text-white rounded-lg px-3 py-2 cursor-pointer"
+              (click)="addWishlistItemToCart(wishlistItem._id)"
+            >
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  <button
+    class="bg-red-800 px-3 py-2 cursor-pointer rounded-2xl text-white"
+    (click)="emptyWishlist()"
+  >
+    Clear all Wishlist
+  </button>
+</section>
