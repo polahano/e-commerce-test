@@ -31,7 +31,11 @@ export const routes: Routes = [
             { path: 'cart', component: CartComponent, title: 'Cart' },
             { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
             { path: 'products', component: ProductsComponent, title: 'Products' },
-            { path: 'details/:id', component: DetailsComponent, title: 'Details' },
+            {
+                path: 'details/:id', component: DetailsComponent, title: 'Details', data: {
+                    renderMode: 'no-prerender'
+                }
+            },
             { path: 'allorders', component: AllordersComponent, title: 'Orders' },
             { path: 'wishlist', component: WishlistComponent, title: 'Wishlist' },
             { path: 'categories', component: CategoriesComponent, title: 'Categories' },
