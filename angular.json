@@ -102,6 +102,19 @@
             ],
             "scripts": []
           }
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "e-commerce-test:build:production",
+            "serverTarget": "e-commerce-test:server:production",
+            "routes": [
+              "/",
+              "/details/6428ebc6dc1175abc65ca0b9",
+              "/details/6428ead5dc1175abc65ca0ad",
+              "/details/6428e7ecdc1175abc65ca090"
+            ]
+          }
         }
       }
     }

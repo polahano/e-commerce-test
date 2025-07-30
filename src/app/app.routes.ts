@@ -17,6 +17,18 @@ import { AllordersComponent } from './pages/container/allorders/allorders.compon
 import { ForgotPassComponent } from './pages/auth/forgot-pass/forgot-pass.component';
 import { WishlistComponent } from './pages/container/wishlist/wishlist.component';
 import { CategoriesComponent } from './pages/container/categories/categories.component';
+import { provideServerRendering } from '@angular/platform-server';
+
+
+export function getPrerenderRoutes() {
+    // This returns a list of routes that Angular will prerender
+    return [        // static route
+        '/details/6428ebc6dc1175abc65ca0b9',   // dynamic route instance
+        '/details/6428ead5dc1175abc65ca0ad',
+        '/details/6428e7ecdc1175abc65ca090'
+    ];
+}
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -33,8 +45,11 @@ export const routes: Routes = [
             { path: 'products', component: ProductsComponent, title: 'Products' },
             {
                 path: 'details/:id', component: DetailsComponent, title: 'Details', data: {
-                    renderMode: 'no-prerender'
-                }
+                    renderMode: 'prerender'
+                },
+                providers: [
+                    provideServerRendering()
+                ]
             },
             { path: 'allorders', component: AllordersComponent, title: 'Orders' },
             { path: 'wishlist', component: WishlistComponent, title: 'Wishlist' },

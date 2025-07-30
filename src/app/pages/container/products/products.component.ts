@@ -7,13 +7,12 @@ import { WishlistService } from '../../../core/services/wishlist/wishlist.servic
 import { initFlowbite } from 'flowbite';
 import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 import { CategoriesService } from '../../../core/services/categories/categories.service';
-import { LabelType, NgxSliderModule, Options } from '@angular-slider/ngx-slider';
 import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-products',
-  imports: [AddToCartButtonComponent, RouterLink, NgxSliderModule, FormsModule],
+  imports: [AddToCartButtonComponent, RouterLink, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
@@ -39,21 +38,6 @@ export class ProductsComponent implements OnInit {
 
   minValue: number = 0;
   maxValue: number = 42960;
-
-  options: Options = {
-    floor: this.minValue,
-    ceil: this.maxValue,
-    translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return "<b>From:</b> EGP" + value;
-        case LabelType.High:
-          return "<b>To:</b> EGP" + value;
-        default:
-          return "EGP" + value;
-      }
-    }
-  };
 
 
 
