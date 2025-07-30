@@ -4,6 +4,11 @@ import { IProduct } from '../../../shared/interfaces/iproduct';
 import { RouterLink } from '@angular/router';
 import { AddToCartButtonComponent } from "../../../shared/components/ui/add-to-cart-button/add-to-cart-button.component";
 import { WishlistService } from '../../../core/services/wishlist/wishlist.service';
+import { CategoriesService } from '../../../core/services/categories/categories.service';
+import { ICategory } from '../../../shared/interfaces/icategory';
+import { BrandsService } from '../../../core/services/brands/brands.service';
+import { initFlowbite } from 'flowbite';
+import { FlowbiteService } from '../../../core/services/flowbite/flowbite.service';
 // import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 
@@ -16,82 +21,41 @@ import { WishlistService } from '../../../core/services/wishlist/wishlist.servic
 })
 export class HomeComponent implements OnInit {
 
+  constructor(private flowbiteService: FlowbiteService) { }
 
-  private readonly productService = inject(ProductService)
-  private readonly wishlistService = inject(WishlistService)
+  private readonly categoriesService = inject(CategoriesService)
+  private readonly brandsService = inject(BrandsService)
 
-  productsArr = computed(() => this.productService.productsArr())
-  wishlistArray = computed(() => this.wishlistService.wishlistArr())
-
-  // customOptions: OwlOptions = {
-  //     loop: true,
-  //     mouseDrag: false,
-  //     touchDrag: false,
-  //     pullDrag: false,
-  //     dots: false,
-  //     navSpeed: 700,
-  //     navText: ['', ''],
-  //     responsive: {
-  //       0: {
-  //         items: 1
-  //       },
-  //       400: {
-  //         items: 2
-  //       },
-  //       740: {
-  //         items: 3
-  //       },
-  //       940: {
-  //         items: 4
-  //       }
-  //     },
-  //     nav: true
-  //   }
-
+  categoriesArr = computed(() => this.categoriesService.categoriesArr())
+  brandsArr = computed(() => this.brandsService.brandsArr())
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
-      next: (res) => {
-        this.productService.productsArr.set(res.data);
-      }
-    })
 
-    this.wishlistService.getWishlist().subscribe({
+    this.flowbiteService.loadFlowbite((flowbite) => {
+      initFlowbite();
+    });
+
+    this.getAllCategories()
+    this.getAllBrands()
+  }
+
+
+  getAllCategories() {
+    this.categoriesService.getAllCategories().subscribe({
       next: (res) => {
         console.log(res);
-        this.wishlistService.wishlistArr.set(res.data)
+        this.categoriesService.categoriesArr.set(res.data)
       }
     })
   }
 
-
-  isWishListItem(productId: string): boolean {
-    if (this.wishlistArray().find(p => p._id === productId)) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  shuffleWishlistStatus(product: IProduct) {
-    if (this.isWishListItem(product._id)) {
-      this.wishlistService.removeProductFromWishlist(product._id).subscribe({
-        next: (res) => {
-          console.log(res);
-          // very tricky
-          this.wishlistService.wishlistArr.set(this.wishlistService.wishlistArr().filter(p => p._id !== product._id));
-        }
-      })
-    } else {
-      this.wishlistService.addProductToWishlist(product._id).subscribe({
-        next: (res) => {
-          console.log(res);
-          // very tricky
-          this.wishlistService.wishlistArr.set([...this.wishlistService.wishlistArr(), product]);
-        }
-      })
-    }
-
+  getAllBrands() {
+    this.brandsService.getAllBrands().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.brandsService.brandsArr.set(res.data)
+      }
+    })
   }
 
 

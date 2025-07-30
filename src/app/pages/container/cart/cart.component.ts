@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { log } from 'console';
 import { ICart } from '../../../shared/interfaces/icart';
@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   private readonly cartService = inject(CartService)
   cartProducts: IProduct[] | null = [];
   cartData: ICart = {} as ICart;
+  cartItemsCount = computed(() => this.cartService.cartItemsCount())
 
   ngOnInit(): void {
     this.cartService.getUserCartItems().subscribe({

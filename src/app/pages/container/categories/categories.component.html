@@ -1,66 +1,32 @@
 <section class="container px-20 py-30">
-  <div class="categories">
-    <div class="flex justify-between">
-      <h2 class="text-2xl">Popular Categories</h2>
-      <span
-        class="text-blue-700 underline cursor-pointer"
-        routerLink="/categories"
-        >SEE ALL ></span
-      >
-    </div>
-    <div class="grid grid-cols-5 gap-3">
-      @for (category of categoriesArr().slice(0,5); track category._id) {
-      <div
-        class="category card rounded-2xl bg-linear-30 from-blue-200 to-gray-200 border-2 border-cyan-600 p-3 shadow-2xl cursor-pointer"
-        routerLink="/products"
-      >
-        <img
-          [src]="category.image"
-          alt="{{ category.name }}"
-          class="h-40 rounded-2xl mx-auto"
-        />
-        <p class="text-center font-bold uppercase mt-3">
-          {{ category.name }}
-        </p>
-      </div>
-      }
-    </div>
-  </div>
-  <br />
-  <hr />
+  <h2 class="text-2xl text-center">Popular Categories</h2>
 
-  <div class="brands mt-10">
-    <div class="flex justify-between">
-      <h2 class="text-2xl">Popular Brands</h2>
-      <span class="text-blue-700 underline cursor-pointer" routerLink="/brands"
-        >SEE ALL ></span
-      >
-    </div>
+  <div class="categories">
     <div
       id="indicators-carousel"
       class="relative w-full"
       data-carousel="static"
     >
       <!-- Carousel wrapper -->
-      <div class="relative h-70 overflow-hidden rounded-lg md:h-70">
+      <div class="relative h-50 overflow-hidden rounded-lg md:h-70">
         <!-- Item 1 -->
         <div
           class="hidden duration-700 ease-in-out"
           data-carousel-item="active"
         >
           <div class="grid grid-cols-5 absolute w-full gap-3">
-            @for (brand of brandsArr().slice(0,5); track $index) {
+            @for (category of categoriesArr().slice(0,5); track $index) {
             <div
-              class="brand card rounded-2xl bg-linear-30 from-amber-200 to-red-200 border-2 border-orange-600 p-3 shadow-2xl cursor-pointer"
-              routerLink="/products"
+              class="category card rounded-2xl bg-linear-30 from-blue-200 to-gray-200 border-2 border-cyan-600 p-3 shadow-2xl cursor-pointer"
+              (click)="getAllSubcategoriesOfSpecificCategory(category._id)"
             >
               <img
-                [src]="brand.image"
-                alt="{{ brand.name }}"
+                [src]="category.image"
+                alt="{{ category.name }}"
                 class="h-40 rounded-2xl mx-auto"
               />
               <p class="text-center font-bold uppercase mt-3">
-                {{ brand.name }}
+                {{ category.name }}
               </p>
             </div>
             }
@@ -69,18 +35,18 @@
         <!-- Item 2 -->
         <div class="hidden duration-700 ease-in-out" data-carousel-item>
           <div class="grid grid-cols-5 absolute w-full justify-center gap-3">
-            @for (brand of brandsArr().slice(5,10); track brand._id) {
+            @for (category of categoriesArr().slice(5,10); track category._id) {
             <div
-              class="brand card rounded-2xl bg-linear-30 from-amber-200 to-red-200 border-2 border-orange-600 p-3 shadow-2xl cursor-pointer"
-              routerLink="/products"
+              class="category card rounded-2xl bg-linear-30 from-blue-200 to-gray-200 border-2 border-cyan-600 p-3 shadow-2xl cursor-pointer"
+              (click)="getAllSubcategoriesOfSpecificCategory(category._id)"
             >
               <img
-                [src]="brand.image"
-                alt="{{ brand.name }}"
+                [src]="category.image"
+                alt="{{ category.name }}"
                 class="h-40 rounded-2xl mx-auto"
               />
               <p class="text-center font-bold uppercase mt-3">
-                {{ brand.name }}
+                {{ category.name }}
               </p>
             </div>
             }
@@ -162,5 +128,21 @@
     </div>
   </div>
 
-  <div class="popular-products"></div>
+  @if(subcategoriesArr()!==[]){
+  <div class="subcategories mt-5">
+    <div class="grid grid-cols-5 w-full gap-3">
+      @for (subcategory of subcategoriesArr(); track subcategory._id) {
+      <div
+        class="category card flex justify-center items-center rounded-2xl text-white bg-linear-30 from-blue-700 to-gray-700 border-2 hover:to-blue-500 hover:from-gray-500 p-3 shadow-2xl cursor-pointer"
+      >
+        <p class="text-center font-bold uppercase">
+          {{ subcategory.name }}
+        </p>
+      </div>
+      }
+    </div>
+  </div>
+  } @else{
+  <p class="text-center text-xl text-red-800">There are no subcategories</p>
+  }
 </section>

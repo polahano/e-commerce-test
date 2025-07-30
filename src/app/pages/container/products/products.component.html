@@ -1,1 +1,611 @@
-<p>products works!</p>
+<section class="py-30">
+  <div class="container flex">
+    <div class="filter w-1/4"></div>
+    <div class="products w-3/4"></div>
+  </div>
+  <h2 class="text-5xl text-center">Popular Products</h2>
+
+  <div class="container px-20 py-10">
+    <!-- TEST -->
+    <div class="filter">
+      <!-- drawer init and show -->
+      <div class="flex justify-end gap-2">
+        <form class="">
+          <label
+            for="default-search"
+            class="mb-2 text-sm font-medium text-gray-900 sr-only"
+            >Search</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+            >
+              <svg
+                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                />
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              name="search"
+              #search_input
+              [(ngModel)]="searchText"
+              (input)="onSearchInputChange()"
+              class="block w-xl p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+              placeholder="Search Products ..."
+            />
+            <button
+              type="submit"
+              class="text-white absolute end-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2"
+              (click)="onSeachButton(search_input.value)"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+        <select
+          [(ngModel)]="sortOption"
+          (change)="applySort()"
+          class="rounded-lg border-green-600"
+        >
+          <option value="">Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Rating: High to Low</option>
+        </select>
+        <button
+          class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          type="button"
+          data-drawer-target="drawer-navigation"
+          data-drawer-show="drawer-navigation"
+          aria-controls="drawer-navigation"
+        >
+          Filters <i class="fas fa-filter"></i>
+        </button>
+      </div>
+
+      <!-- drawer component -->
+      <div
+        id="drawer-navigation"
+        class="fixed top-0 left-0 z-[100] w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white"
+        tabindex="-1"
+        aria-labelledby="drawer-navigation-label"
+      >
+        <h5
+          id="drawer-navigation-label"
+          class="text-base font-semibold text-gray-500 uppercase"
+        >
+          Menu
+        </h5>
+        <button
+          type="button"
+          data-drawer-hide="drawer-navigation"
+          aria-controls="drawer-navigation"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          <span class="sr-only">Close menu</span>
+        </button>
+        <div class="py-4 overflow-y-auto">
+          <button
+            data-drawer-target="sidebar-multi-level-sidebar"
+            data-drawer-toggle="sidebar-multi-level-sidebar"
+            aria-controls="sidebar-multi-level-sidebar"
+            type="button"
+            class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          >
+            <span class="sr-only">Open sidebar</span>
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+              ></path>
+            </svg>
+          </button>
+
+          <aside
+            id="sidebar-multi-level-sidebar"
+            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+            aria-label="Sidebar"
+          >
+            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50">
+              <ul class="space-y-2 font-medium">
+                <li>
+                  <div class="filter-price">
+                    Price:
+                    <ngx-slider
+                      [(value)]="minValue"
+                      [(highValue)]="maxValue"
+                      [options]="options"
+                    ></ngx-slider>
+                  </div>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                    aria-controls="dropdown-example"
+                    data-collapse-toggle="dropdown-example"
+                  >
+                    <svg
+                      class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 18 21"
+                    >
+                      <path
+                        d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"
+                      />
+                    </svg>
+                    <span
+                      class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap"
+                      >Categories</span
+                    >
+                    <svg
+                      class="w-3 h-3"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 10 6"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 1 4 4 4-4"
+                      />
+                    </svg>
+                  </button>
+                  <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                    @for(category of categoriesArr(); track category._id){
+                    <li>
+                      <div
+                        class="flex items-center p-2 rounded-sm hover:bg-gray-100"
+                      >
+                        <label
+                          [for]="`checkbox-item-${category._id}`"
+                          class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm"
+                          >{{ category.name }}</label
+                        >
+                        <input
+                          [id]="`checkbox-item-${category._id}`"
+                          type="checkbox"
+                          value=""
+                          class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500"
+                          (change)="
+                            onCategoryCheckboxChange($event, category._id)
+                          "
+                        />
+                      </div>
+                    </li>
+                    }
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </aside>
+
+          <div class="p-4 sm:ml-64">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg">
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div
+                  class="flex items-center justify-center h-24 rounded-sm bg-gray-50"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center h-24 rounded-sm bg-gray-50"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center h-24 rounded-sm bg-gray-50"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-50"
+              >
+                <p class="text-2xl text-gray-400">
+                  <svg
+                    class="w-3.5 h-3.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 18 18"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 1v16M1 9h16"
+                    />
+                  </svg>
+                </p>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-center h-48 mb-4 rounded-sm bg-gray-50"
+              >
+                <p class="text-2xl text-gray-400">
+                  <svg
+                    class="w-3.5 h-3.5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 18 18"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 1v16M1 9h16"
+                    />
+                  </svg>
+                </p>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+                <div
+                  class="flex items-center justify-center rounded-sm bg-gray-50 h-28"
+                >
+                  <p class="text-2xl text-gray-400">
+                    <svg
+                      class="w-3.5 h-3.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 18 18"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 1v16M1 9h16"
+                      />
+                    </svg>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="space-y-2 font-medium">
+            <li>
+              <div class="filter-categories">
+                <button
+                  id="dropdownBgHoverButton"
+                  data-dropdown-toggle="dropdownBgHover"
+                  class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+                  type="button"
+                >
+                  Categories
+                  <svg
+                    class="w-2.5 h-2.5 ms-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 10 6"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div
+                  id="dropdownBgHover"
+                  class="z-10 hidden w-48 bg-white rounded-lg shadow-sm"
+                >
+                  <ul
+                    class="p-3 space-y-1 text-sm text-gray-700"
+                    aria-labelledby="dropdownBgHoverButton"
+                  >
+                    <!-- @for(category of categoriesArr(); track category._id){
+                    <li>
+                      <div
+                        class="flex items-center p-2 rounded-sm hover:bg-gray-100"
+                      >
+                        <input
+                          id="checkbox-item-4"
+                          type="checkbox"
+                          value=""
+                          class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500"
+                        />
+                        <label
+                          for="checkbox-item-4"
+                          class="w-full ms-2 text-sm font-medium text-gray-900 rounded-sm"
+                          >{{ category.name }}</label
+                        >
+                      </div>
+                    </li>
+                    } -->
+                  </ul>
+                </div>
+              </div>
+              <br />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEST END -->
+    <br />
+    <div class="row grid grid-cols-2 md:grid-cols-4 gap-5">
+      @for (product of filteredProductsArr; track product._id) {
+      <div
+        class="card border-2 border-gray-400 rounded-2xl hover:scale-105 transition-all shadow-gray-300 relative p-3 cursor-pointer flex flex-col justify-between"
+      >
+        <a target="_self" class="" [routerLink]="['/details', product._id]">
+          <div class="">
+            <img
+              [src]="product.imageCover"
+              alt="{{ product.description }}"
+              class="w-full rounded-2xl"
+            />
+            <p class="text-2xl line-clamp-2">{{ product.title }}</p>
+          </div>
+          <p>{{ product.description.split(" ", 5).join(" ") }}...</p>
+        </a>
+        <i
+          (click)="shuffleWishlistStatus(product)"
+          class="fa-regular fa-heart border-1 p-3 bg-white border-emerald-900 rounded-xl absolute end-4 bottom-52 hover:bg-gray-200 text-lg"
+          [class]="{'fa-solid':isWishListItem(product._id),'text-red-700':isWishListItem(product._id),}"
+        ></i>
+        <img
+          [src]="product.brand.image"
+          alt="{{ product.brand.name }}"
+          class="w-[50px] mx-auto absolute top-5 right-5 rounded-2xl opacity-80"
+        />
+        <div>
+          <p class="text-xl text-emerald-700 text-center">
+            {{ product.price }} EGP
+          </p>
+
+          <app-add-to-cart-button
+            [productId]="product._id"
+            width="w-full"
+          ></app-add-to-cart-button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>

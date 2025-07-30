@@ -1,1 +1,22 @@
 <p>brands works!</p>
+
+<section class="container px-20 py-30">
+  <h2 class="text-2xl text-center">Popular Brands</h2>
+
+  <div class="brands grid grid-cols-5 w-full gap-3">
+    @for (brand of brandsArr(); track $index) {
+    <div
+      class="brand card rounded-2xl bg-linear-30 from-amber-200 to-red-200 border-2 border-orange-600 p-3 shadow-2xl cursor-pointer"
+    >
+      <img
+        [src]="brand.image"
+        alt="{{ brand.name }}"
+        class="h-40 rounded-2xl mx-auto"
+      />
+      <p class="text-center font-bold uppercase mt-3">
+        {{ brand.name }}
+      </p>
+    </div>
+    }
+  </div>
+</section>

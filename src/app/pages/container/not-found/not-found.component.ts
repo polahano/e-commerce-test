@@ -9,4 +9,6 @@ import { NavbarComponent } from "../../../layouts/navbar/navbar.component";
 })
 export class NotFoundComponent {
 
+
+
 }

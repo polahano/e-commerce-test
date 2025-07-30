@@ -12,6 +12,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   productsArr: WritableSignal<IProduct[]> = signal([])
+  searchedProductsArr: WritableSignal<IProduct[]> = signal([])
 
 
   getProducts(): Observable<any> {
