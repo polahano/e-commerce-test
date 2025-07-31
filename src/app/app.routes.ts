@@ -45,15 +45,7 @@ export const routes: Routes = [
             { path: 'checkout', component: CheckoutComponent, title: 'Checkout' },
             { path: 'products', component: ProductsComponent, title: 'Products' },
             {
-                path: 'details/:id', component: DetailsComponent, title: 'Details', data: {
-                    getPrerenderParams: () => {
-                        return [
-                            { id: "6428ebc6dc1175abc65ca0b9" },
-                            { id: "6428ead5dc1175abc65ca0ad" },
-                            { id: "6428e7ecdc1175abc65ca090" },
-                        ]
-                    }
-                }
+                path: 'details/:id', component: DetailsComponent, title: 'Details'
             },
             { path: 'allorders', component: AllordersComponent, title: 'Orders' },
             { path: 'wishlist', component: WishlistComponent, title: 'Wishlist' },
