@@ -1,5 +1,5 @@
 <nav class="bg-white border-gray-200 shadow-md">
-  <div class="md:flex md:items-center px-15 py-4">
+  <div class="md:flex md:items-center px-8 lg:px-15 py-4">
     <a class="flex md:items-center space-x-3 rtl:space-x-reverse">
       <img src="/images/freshcart-logo.svg" class="h-8" alt="Flowbite Logo" />
     </a>
@@ -28,13 +28,13 @@
       </svg>
     </button>
     <div
-      class="hidden md:flex md:w-full md:justify-between"
+      class="hidden md:flex md:w-full justify-end md:gap-2"
       id="navbar-default"
     >
+      @if (isLoggedIn()) {
       <ul
         class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 md:border-0 rounded-lg bg-gray-50 md:flex-row md:bg-white md:self-start"
       >
-        @if (isLoggedIn()) {
         <li>
           <a
             class="block py-2 px-3 rounded-sm"
@@ -75,7 +75,7 @@
           <form class="">
             <label
               for="default-search"
-              class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              class="mb-2 text-sm font-medium text-gray-900 sr-only"
               >Search</label
             >
             <div class="relative">
@@ -83,7 +83,7 @@
                 class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
               >
                 <svg
-                  class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  class="w-4 h-4 text-gray-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -105,7 +105,7 @@
                 #search_input
                 [(ngModel)]="searchText"
                 (input)="onSearchInputChange()"
-                class="block w-xl p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
+                class="block lg:w-xl w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500"
                 placeholder="Search Products ..."
                 required
               />
@@ -114,7 +114,7 @@
                 class="text-white absolute end-2.5 bottom-2.5 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2"
                 (click)="onSeachButton(search_input.value)"
               >
-                Search
+                <i class="fas fa-search"></i>
               </button>
               @if(searchText!==''){
               <div class="search-results absolute top-15 start-0">
@@ -148,51 +148,19 @@
             </div>
           </form>
         </li>
-        }
-      </ul>
-      <div class="flex">
-        <ul class="icons list-unstyled flex items-center gap-3">
-          <!-- <li>
-            <a class="cursor-pointer fab fa-facebook"></a>
-          </li>
-          <li>
-            <a class="cursor-pointer fab fa-instagram"></a>
-          </li>
-          <li>
-            <a class="cursor-pointer fab fa-tiktok"></a>
-          </li>
-          <li>
-            <a class="cursor-pointer fab fa-twitter"></a>
-          </li>
-          <li>
-            <a class="cursor-pointer fab fa-linkedin"></a>
-          </li>
-          <li>
-            <a class="cursor-pointer fab fa-youtube"></a>
-          </li> -->
-          <li>
-            <a
-              class="block py-2 px-3 rounded-sm relative"
-              aria-current="page"
-              routerLink="/cart"
-              routerLinkActive="bg-green-500"
-              ><i class="fas fa-shopping-cart"></i>
-              <span
-                class="absolute top-0 end-0 inline-flex items-center rounded-md bg-green-50 px-1 text-xs text-green-700 ring-1 ring-green-600/20 ring-inset"
-                >{{ cartCount() }}</span
-              >
-            </a>
-          </li>
-        </ul>
-        <ul class="auth list-unstyled flex items-center gap-3">
-          @if (isLoggedIn()==false) {
-          <li>
-            <a routerLink="/login">Log In</a>
-          </li>
-          <li>
-            <a routerLink="/register">Register</a>
-          </li>
-          } @if (isLoggedIn()) {
+        <li class="md:my-0 my-2 flex">
+          <a
+            class="py-2 px-3 rounded-sm relative md:mx-3"
+            aria-current="page"
+            routerLink="/cart"
+            routerLinkActive="bg-green-500"
+            ><i class="fas fa-shopping-cart"></i>
+            <span
+              class="absolute top-0 end-0 inline-flex items-center rounded-md bg-green-50 px-1 text-xs text-green-700 ring-1 ring-green-600/20 ring-inset"
+              >{{ cartCount() }}</span
+            >
+          </a>
+          @if (isLoggedIn()) {
 
           <!-- Profileee -->
           <img
@@ -256,6 +224,19 @@
               >
             </div>
           </div>
+          }
+        </li>
+      </ul>
+      }
+      <div class="flex">
+        <ul class="auth list-unstyled flex items-center gap-3">
+          @if (isLoggedIn()==false) {
+          <li>
+            <a routerLink="/login">Log In</a>
+          </li>
+          <li>
+            <a routerLink="/register">Register</a>
+          </li>
           }
         </ul>
       </div>

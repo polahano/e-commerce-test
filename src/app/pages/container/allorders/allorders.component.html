@@ -1,10 +1,10 @@
-<section class="container px-20 py-30">
+<section class="px-8 md:px-20 pt-30">
   <div
-    class="cart-container orders rounded-2xl bg-blue-200 border-blue-950 shadow-blue-300 shadow-xl p-7 grid grid-cols-2 gap-2"
+    class="cart-container orders rounded-2xl bg-blue-200 border-blue-950 shadow-blue-300 shadow-xl p-3 md:p-7 grid md:grid-cols-2 grid-cols-1 gap-2"
   >
     @for(order of ordersArr;track order._id){
     <div
-      class="cart order rounded-2xl bg-blue-400 shadow-blue-200 shadow-xl p-3"
+      class="cart order rounded-2xl bg-blue-200 border-2 border-blue-400 shadow-blue-200 shadow-xl p-3"
     >
       <div class="flex justify-between">
         <p class="text-2xl">Order {{ $index }}</p>
@@ -23,8 +23,8 @@
 
       <p>Cart Items</p>
       <div class="cart-items">
-        <div class="container">
-          <div class="grid grid-cols-2 gap-5">
+        <div class="">
+          <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
             @if(ordersArr===[]){
             <p>No Orders yet!!</p>
             <button
@@ -38,7 +38,7 @@
               class="shadow-lg border-gray-700 bg-gray-400 rounded-2xl p-5 my-2 cursor-pointer"
               [routerLink]="['/details', cartItem.product._id]"
             >
-              <div class="image w-1/4">
+              <div class="image md:w-1/4 w-1/2">
                 <img
                   [src]="cartItem.product.imageCover"
                   alt="{{ cartItem.product.description }}"

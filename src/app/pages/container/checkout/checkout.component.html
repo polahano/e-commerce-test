@@ -1,179 +1,182 @@
-<section
-  class="bg-emerald-200 flex flex-col rounded-xl w-1/2 mx-auto p-4 my-30"
->
-  <h2>Checkout Details</h2>
-  <form
-    [formGroup]="paymentForm"
-    (ngSubmit)="proceedToCheckout()"
-    class="flex flex-col"
+<section class="px-8">
+  <div
+    class="container bg-emerald-200 flex flex-col rounded-xl md:w-1/2 w-full md:mx-auto p-4 my-30"
   >
-    <label for="details" class="mb-2 text-sm font-medium text-gray-900"
-      >details</label
+    <h2>Checkout Details</h2>
+    <form
+      [formGroup]="paymentForm"
+      (ngSubmit)="proceedToCheckout()"
+      class="flex flex-col"
     >
-    <input
-      type="text"
-      id="details"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
-      placeholder=""
-      formControlName="details"
-      required
-    />
+      <label for="details" class="mb-2 text-sm font-medium text-gray-900"
+        >details</label
+      >
+      <input
+        type="text"
+        id="details"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+        placeholder=""
+        formControlName="details"
+        required
+      />
 
-    <!--  -->
-    @if (paymentForm.get('details')?.errors &&
-    paymentForm.get('details')?.dirty) {
-    <div
-      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-      role="alert"
-    >
-      <div>
-        <ul class="mt-1.5 list-disc list-inside">
-          @if (paymentForm.get('details')?.getError('required')) {
-          <li>details is Reqired</li>
-          }
-        </ul>
-      </div>
-    </div>
-    }
-
-    <!--  -->
-    <label for="phone" class="mb-2 text-sm font-medium text-gray-900"
-      >phone</label
-    >
-    <input
-      type="text"
-      id="phone"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
-      placeholder=""
-      formControlName="phone"
-      required
-    />
-
-    <!--  -->
-    @if (paymentForm.get('phone')?.errors && paymentForm.get('phone')?.dirty) {
-    <div
-      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-      role="alert"
-    >
-      <div>
-        <ul class="mt-1.5 list-disc list-inside">
-          @if (paymentForm.get('phone')?.getError('required')) {
-          <li>Phone is Reqired</li>
-          } @if (paymentForm.get('phone')?.getError('pattern')) {
-          <li>Please enter correct phone format</li>
-          }
-        </ul>
-      </div>
-    </div>
-    }
-
-    <!--  -->
-    <label for="city" class="mb-2 text-sm font-medium text-gray-900"
-      >city</label
-    >
-    <input
-      type="text"
-      id="city"
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
-      placeholder=""
-      formControlName="city"
-      required
-    />
-
-    <!--  -->
-    @if (paymentForm.get('city')?.errors && paymentForm.get('city')?.dirty) {
-    <div
-      class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-      role="alert"
-    >
-      <div>
-        <ul class="mt-1.5 list-disc list-inside">
-          @if (paymentForm.get('city')?.getError('required')) {
-          <li>city is Reqired</li>
-          }
-        </ul>
-      </div>
-    </div>
-    }
-
-    <!--  -->
-
-    @if(responseErrorMsg){
-    <div
-      class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
-      role="alert"
-    >
-      <div>
-        <p class="font-medium">
-          {{ responseErrorMsg }}
-        </p>
-      </div>
-    </div>
-    }
-
-    <!-- test -->
-    <!-- <app-cash-visa-card></app-cash-visa-card> -->
-
-    <div class="flex gap-4">
-      <!-- Cash Card -->
-      <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
-        <input
-          type="radio"
-          id="paymentMethod"
-          value="cash"
-          class="peer hidden"
-          formControlName="paymentMethod"
-        />
-        <div
-          class="p-4 border-2 rounded-xl text-center peer-checked:border-green-600 transition-all"
-        >
-          <div class="text-xl font-bold">Cash</div>
-          <div class="text-sm text-gray-500">Pay on delivery</div>
+      <!--  -->
+      @if (paymentForm.get('details')?.errors &&
+      paymentForm.get('details')?.dirty) {
+      <div
+        class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+        role="alert"
+      >
+        <div>
+          <ul class="mt-1.5 list-disc list-inside">
+            @if (paymentForm.get('details')?.getError('required')) {
+            <li>details is Reqired</li>
+            }
+          </ul>
         </div>
-      </label>
-
-      <!-- Visa Card -->
-      <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
-        <input
-          type="radio"
-          id="payment"
-          value="visa"
-          class="peer hidden"
-          formControlName="paymentMethod"
-        />
-        <div
-          class="p-4 border-2 rounded-xl text-center peer-checked:border-green-600 transition-all"
-        >
-          <div class="text-xl font-bold">Visa</div>
-          <div class="text-sm text-gray-500">Pay now</div>
-        </div>
-      </label>
-    </div>
-
-    <!-- test -->
-
-    @if(res){
-    <div
-      class="flex items-center justify-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 transition-all"
-      role="alert"
-    >
-      <div>
-        @if(paymentForm.controls.paymentMethod.value==='visa'){
-        <p class="font-medium">Redirecting to payment ...</p>
-        } @else if (paymentForm.controls.paymentMethod.value==='cash') {
-        <p class="font-medium">Redirecting to orders ...</p>
-        }
       </div>
-    </div>
-    }
-    <button
-      type="submit"
-      [disabled]="paymentForm.invalid || isLoading"
-      class="disabled:bg-gray-500 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full mt-2"
-    >
-      Pay Now @if(isLoading==true){
-      <i class="fa-solid fa-spinner fa-spin ms-2"></i>
       }
-    </button>
-  </form>
+
+      <!--  -->
+      <label for="phone" class="mb-2 text-sm font-medium text-gray-900"
+        >phone</label
+      >
+      <input
+        type="text"
+        id="phone"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+        placeholder=""
+        formControlName="phone"
+        required
+      />
+
+      <!--  -->
+      @if (paymentForm.get('phone')?.errors && paymentForm.get('phone')?.dirty)
+      {
+      <div
+        class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+        role="alert"
+      >
+        <div>
+          <ul class="mt-1.5 list-disc list-inside">
+            @if (paymentForm.get('phone')?.getError('required')) {
+            <li>Phone is Reqired</li>
+            } @if (paymentForm.get('phone')?.getError('pattern')) {
+            <li>Please enter correct phone format</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+
+      <!--  -->
+      <label for="city" class="mb-2 text-sm font-medium text-gray-900"
+        >city</label
+      >
+      <input
+        type="text"
+        id="city"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 mb-2"
+        placeholder=""
+        formControlName="city"
+        required
+      />
+
+      <!--  -->
+      @if (paymentForm.get('city')?.errors && paymentForm.get('city')?.dirty) {
+      <div
+        class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
+        role="alert"
+      >
+        <div>
+          <ul class="mt-1.5 list-disc list-inside">
+            @if (paymentForm.get('city')?.getError('required')) {
+            <li>city is Reqired</li>
+            }
+          </ul>
+        </div>
+      </div>
+      }
+
+      <!--  -->
+
+      @if(responseErrorMsg){
+      <div
+        class="flex items-center justify-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+        role="alert"
+      >
+        <div>
+          <p class="font-medium">
+            {{ responseErrorMsg }}
+          </p>
+        </div>
+      </div>
+      }
+
+      <!-- test -->
+      <!-- <app-cash-visa-card></app-cash-visa-card> -->
+
+      <div class="flex gap-4">
+        <!-- Cash Card -->
+        <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
+          <input
+            type="radio"
+            id="paymentMethod"
+            value="cash"
+            class="peer hidden"
+            formControlName="paymentMethod"
+          />
+          <div
+            class="p-4 border-4 rounded-xl text-center peer-checked:border-green-600 transition-all"
+          >
+            <div class="text-xl font-bold">Cash</div>
+            <div class="text-sm text-gray-500">Pay on delivery</div>
+          </div>
+        </label>
+
+        <!-- Visa Card -->
+        <label class="cursor-pointer rounded-2xl shadow-lg bg-white p-3 w-1/2">
+          <input
+            type="radio"
+            id="payment"
+            value="visa"
+            class="peer hidden"
+            formControlName="paymentMethod"
+          />
+          <div
+            class="p-4 border-4 rounded-xl text-center peer-checked:border-green-600 transition-all"
+          >
+            <div class="text-xl font-bold">Visa</div>
+            <div class="text-sm text-gray-500">Pay now</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- test -->
+
+      @if(res){
+      <div
+        class="flex items-center justify-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 transition-all"
+        role="alert"
+      >
+        <div>
+          @if(paymentForm.controls.paymentMethod.value==='visa'){
+          <p class="font-medium">Redirecting to payment ...</p>
+          } @else if (paymentForm.controls.paymentMethod.value==='cash') {
+          <p class="font-medium">Redirecting to orders ...</p>
+          }
+        </div>
+      </div>
+      }
+      <button
+        type="submit"
+        [disabled]="paymentForm.invalid || isLoading"
+        class="disabled:bg-gray-500 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 w-full mt-2"
+      >
+        Pay Now @if(isLoading==true){
+        <i class="fa-solid fa-spinner fa-spin ms-2"></i>
+        }
+      </button>
+    </form>
+  </div>
 </section>
